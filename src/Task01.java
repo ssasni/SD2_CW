@@ -1,6 +1,6 @@
 //package arrays;
 import java.io.*;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Task01 {
     public static void main (String[] args) {
