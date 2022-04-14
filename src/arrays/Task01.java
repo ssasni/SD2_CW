@@ -3,6 +3,9 @@ package arrays;
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Task01 {
     public static void main (String[] args) {
@@ -40,6 +43,7 @@ public class Task01 {
             System.out.print("Enter your option: ");
             String option = user.nextLine();
 
+
             if (option.equals("A"))
                 add(hotel, input);
 
@@ -52,8 +56,12 @@ public class Task01 {
             else if (option.equals("F"))
                 find(hotel, input);
 
-//            else if (option.equals("S"))
-//                store(hotel);
+            else if (option.equals("S"))
+                try {
+                    store(hotel);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 //            else if (option.equals("L"))
 //                load(hotel);
@@ -69,6 +77,10 @@ public class Task01 {
                 System.out.println("Run again !!..");
                 break;
                 }
+
+            else {
+                System.out.println("Invalid option");
+            }
 
 //            for (int x = 0; x < 12; x++ )
 //            {
@@ -99,10 +111,19 @@ public class Task01 {
         System.out.print("Enter room number (0-11) : "); // Getting the user input for room number
         int roomNum = input.nextInt();
         System.out.println(" ");
-        if (roomNum < 12) {
-            System.out.print("Enter name for room " + roomNum + " : "); // Getting the user input for customer name
-            String roomName = input.next();
-            hotel[roomNum] = roomName;
+        if (roomNum < 0 || roomNum >= 12){
+            System.out.println("Invalid room number"); // if room number is not between 0 - 11 it will print an error message
+        }
+        else {
+            if (hotel[roomNum].equals("e")) { // if room number is empty
+                if (roomNum <= 12) {
+                    System.out.print("Enter name for room " + roomNum + " : "); // Getting the user input for customer name
+                    String roomName = input.next();
+                    hotel[roomNum] = roomName;
+                }
+            } else {
+                System.out.println("Sorry, Room is already occupied"); // else
+            }
         }
     }
 
@@ -133,9 +154,16 @@ public class Task01 {
         System.out.println();
     }
 
-//    private static void store(String [] hotel, Scanner input) {
-//
-//    }
+    private static void store(String [] hotel) throws IOException {
+        File object1 = new File("data.txt");
+        object1.createNewFile();
+        FileWriter write = new FileWriter(object1.getName());
+        for (int i = 0; i < hotel.length; i++){
+            write.write(hotel[i] + "\n");
+        }
+        write.close();
+        System.out.println("Data saved");
+    }
 
 //    private static void load(String [] hotel) {
 //
