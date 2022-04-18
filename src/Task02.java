@@ -71,7 +71,7 @@ public class Task02 {
 
             else if (option.equals("Q")){
                 System.out.println("Thank you");
-                System.out.println("Run again !!..");
+                System.out.println("Run again !!.....");
                 break;
             }
 
@@ -87,7 +87,7 @@ public class Task02 {
     private static void initialise()
     {
         for (int x = 0; x < 12; x++ ) {
-            passenger[x] = new Passenger("e","","");
+            passenger[x] = new Passenger("e","e","0");
             cabin[x] = new Cabin('0');
         }
         System.out.println(" ");
@@ -200,15 +200,16 @@ public class Task02 {
         FileWriter write = new FileWriter(object1.getName());
 //        String names = "";
         for (int i = 0; i < passenger.length; i++){
-            if (passenger[i].equals("e")) {
+            if (passenger[i].fName.equals("e")) {
                 write.write("Room number " + i + " is empty\n");
+                write.write("-----------------------------" + "\n");
             }
             else {
                 write.write("Room number " + i + " is occupied by " + passenger[i].fName + "\n");
                 write.write("Firs Name: " + passenger[i].fName + "\n");
                 write.write("Surname: " + passenger[i].sName + "\n");
                 write.write("Expenses: " + passenger[i].expenses + "\n");
-                write.write("" + "\n");
+                write.write("-----------------------------" + "\n");
             }
 //            if (!passenger[i].equals("e")) {
 //                write.write("Room number: " + i + " is occupied by " + passenger[i] + "\n");
@@ -226,7 +227,7 @@ public class Task02 {
 //            else // else booked
 //                names += "Room number " + i + " is occupied by " + passenger[i] + "\n"; // Display the occupied room
         }
-        System.out.println();
+//        System.out.println();
 //        write.write(names + "\n");
 
         write.close();
@@ -235,27 +236,13 @@ public class Task02 {
 
     // Load data from file
     private static void load() throws IOException {
+        System.out.println("Details loaded\n");
         File object2 = new File("details.txt");
         object2.createNewFile();
-        int x = 0;
-        Scanner File = new Scanner(object2);
-        System.out.println();
-        System.out.println("Details loaded\n");
-        while (File.hasNextLine()) {
-//            String details = File.nextLine();
-            String details1 = File.nextLine();
-            String details2 = File.nextLine();
-            String details3 = File.nextLine();
-//            passenger[x]. = details;
-            passenger[x].fName = details1;
-            passenger[x].sName = details2;
-            passenger[x].expenses = details3;
-            x++;
 
-            System.out.println(details1);
-            System.out.println(details2);
-            System.out.println(details3);
-            System.out.println();
+        Scanner File = new Scanner(object2);
+        while (File.hasNextLine()) {
+            System.out.println(File.nextLine());
         }
         File.close();
     }

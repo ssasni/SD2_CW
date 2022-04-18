@@ -80,7 +80,7 @@ public class Task01 {
 
             else if (option.equals("Q")){
                 System.out.println("Thank you");
-                System.out.println("Run again !!..");
+                System.out.println("Run again !!.....");
                 break;
                 }
 
@@ -160,6 +160,7 @@ public class Task01 {
 
 
     private static void load(String [] hotel) throws IOException {
+        System.out.println("Details loaded\n");
         File object2 = new File("data.txt");
         object2.createNewFile();
 
@@ -168,29 +169,25 @@ public class Task01 {
             System.out.println(File.nextLine());
         }
         File.close();
-        System.out.println("Details loaded");
     }
 
     private static void sort(String [] hotel , String[] roomName) {
-        for (int x = 0; x < hotel.length; x++) roomName[x] = hotel[x];
-        for (int i = 0; i < roomName.length; i++) {
-            for (int j = i + 1; j < roomName.length; j++) {
-                if(j != roomName.length-1)
-                    if (roomName[j].compareTo(roomName[j + 1]) > 0) {
-                        String temp = roomName[j];
-                        roomName[j] = roomName[j + 1];
-                        roomName[j + 1] = temp;
-                    }
-            }
-        }
-        for (int i1 = 0; i1 < roomName.length; i1++) {
-            for (int i2 = 0; i2 < roomName.length; i2++) {
-                if (roomName[i1] != "e") {
-                    if (roomName[i1].equals(hotel[i2])) {
-                        System.out.println("Room " + (i2) + " is occupied by " + roomName[i1]);
-                    }
+        for (int i = 0; i < hotel.length; i++)
+        {
+            for (int j = i + 1; j < hotel.length; j++)
+            {
+                if (hotel[i].compareTo(hotel[j]) > 0)
+                {
+                    String temp = hotel[i];
+                    hotel[i] = hotel[j];
+                    hotel[j] = temp;
                 }
             }
+        }
+        System.out.println("Members first name Ordered in alphabetically");
+        for (int x = 0; x < hotel.length; x++) {
+            if (! hotel[x].equals("e"))
+                System.out.println("Cabin number " + x + " is occupied by " + hotel[x]);
         }
     }
 
