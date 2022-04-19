@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Task02 {
-    public static Scanner input = new Scanner(System.in);
+    public static Scanner input = new Scanner(System.in); // Global Scanner input
     public static Passenger[] passenger = new Passenger[12];
     public static Cabin[] cabin = new Cabin[12];
-    public static ArrayList<String> waitingList = new ArrayList<String>();
     public static int roomNum = 0;
     public static String roomName = "";
 
@@ -38,38 +37,38 @@ public class Task02 {
 
 
             if (option.equals("A"))
-                add();
+                add(); // Calling method to add Passengers
 
             else if (option.equals("E"))
-                empty();
+                empty(); // Calling method to display empty cabins
 
             else if (option.equals("D"))
-                delete();
+                delete(); // Calling method to delete Passengers name
 
             else if (option.equals("F"))
-                find();
+                find(); // Calling method to find cabin by Passengers name
 
             else if (option.equals("S"))
                 try {
-                    store();
+                    store(); // Calling method to store details to file
                 } catch (IOException e) {
                     System.out.println("Error");
                 }
 
             else if (option.equals("L"))
                 try {
-                    load();
+                    load(); // Calling method to load  details from stored file
                 } catch (IOException e) {
                     System.out.println("Error");
                 }
 
             else if (option.equals("O"))
-                sort();
+                sort(); // Calling method to display names in alphabetical order
 
             else if (option.equals("V"))
-                view();
+                view();  // Calling method to view all cabins
 
-            else if (option.equals("Q")){
+            else if (option.equals("Q")){ // Method to quit the program
                 System.out.println("Thank you");
                 System.out.println("Run again !!.....");
                 break;
@@ -92,17 +91,6 @@ public class Task02 {
         }
         System.out.println(" ");
     }
-
-//    public static boolean waitingList() {
-//        boolean booked = true;
-//        for (int x =0; x < passenger.length; x++) {
-//            if (passenger[x].fName.equals("e")) {
-//                booked = false;
-//                break;
-//            }
-//        }
-//        return booked;
-//    }
 
     // Add room (cabin)
     private static void add(){
@@ -131,16 +119,16 @@ public class Task02 {
                 if (roomNum <= 12) {
 //                    System.out.print("Enter the number of members in your room : ");
 //                    cabin[roomNum].member = input.nextInt();
-                    System.out.print("Enter the first name : "); // Getting the user input for customer name
+                    System.out.print("Enter the first name : "); // Getting the user input for customers first name
                     String roomName = input.next();
                     passenger[roomNum].fName = roomName;
-                    System.out.print("Enter the surname : ");
+                    System.out.print("Enter the surname : "); // Getting the user input for customers surname
                     passenger[roomNum].sName = input.next();
-                    System.out.print("Enter the expenses : ");
+                    System.out.print("Enter the expenses : "); // Getting the user input for customers expenses
                     passenger[roomNum].expenses = input.next();
 
                     System.out.println( );
-                    System.out.println("Details added successfully");
+                    System.out.println("Details added successfully"); // Notify message
                 }
             } else {
                 System.out.println("Sorry, Room is already occupied"); // else room number is not empty
@@ -168,14 +156,19 @@ public class Task02 {
 
     // Delete customer from room (cabin)
     private static void delete(){
-        System.out.print("Enter the member name to delete from the room: ");
+        System.out.print("Enter the member name to delete from the room: "); // User input to get customer name
         String Name = input.next();
         for (int x= 0; x < passenger.length; x++) {
-            if (passenger[x].fName.equals(Name)) {
-                passenger[x].fName = "e";
-                passenger[x].sName = "";
-                passenger[x].expenses = "";
-                System.out.println("Member name in room number " + x + " is deleted");
+            if (passenger[x].fName.equals(Name)) { // if passengers name is equal to user input name
+                passenger[x].fName = "e"; // Delete the passengers first name
+                passenger[x].sName = ""; // Delete the passengers surname
+                passenger[x].expenses = ""; // Delete the passengers expenses
+                System.out.println("Member name in room number " + x + " is deleted"); // Display a notify message that the member name is deleted
+                break;
+            }
+            else { // else room is empty
+                System.out.println("No member at any room in this name"); // Display a notify message that the passengers name does not match
+                break;
             }
         }
 //        int dlt = input.nextInt();
@@ -184,7 +177,7 @@ public class Task02 {
 
     // Find the cabin by customer name
     private static void find(){
-        System.out.print("Enter the member's first name to find his room: ");
+        System.out.print("Enter the member's first name to find his room: "); // User input to get customer name
         String roomName = input.next();
         for (int i=0; i < passenger.length; i++) {
             if (passenger[i].fName.equals(roomName))
@@ -195,20 +188,20 @@ public class Task02 {
 
     // Store data into file
     private static void store() throws IOException {
-        File object1 = new File("details.txt");
+        File object1 = new File("details.txt"); // Create a file
         object1.createNewFile();
-        FileWriter write = new FileWriter(object1.getName());
+        FileWriter write = new FileWriter(object1.getName()); // Write file
 //        String names = "";
         for (int i = 0; i < passenger.length; i++){
-            if (passenger[i].fName.equals("e")) {
-                write.write("Room number " + i + " is empty\n");
+            if (passenger[i].fName.equals("e")) { // if room is empty
+                write.write("Room number " + i + " is empty\n"); // Store the empty rooms
                 write.write("-----------------------------" + "\n");
             }
             else {
-                write.write("Room number " + i + " is occupied by " + passenger[i].fName + "\n");
-                write.write("Firs Name: " + passenger[i].fName + "\n");
-                write.write("Surname: " + passenger[i].sName + "\n");
-                write.write("Expenses: " + passenger[i].expenses + "\n");
+                write.write("Room number " + i + " is occupied by " + passenger[i].fName + "\n"); // Store the occupied room by name
+                write.write("Firs Name: " + passenger[i].fName + "\n"); // Customer's First name
+                write.write("Surname: " + passenger[i].sName + "\n"); // Customer's Surname
+                write.write("Expenses: " + passenger[i].expenses + "\n"); // Customer's Expenses
                 write.write("-----------------------------" + "\n");
             }
 //            if (!passenger[i].equals("e")) {
@@ -230,7 +223,7 @@ public class Task02 {
 //        System.out.println();
 //        write.write(names + "\n");
 
-        write.close();
+        write.close(); // Close the file
         System.out.println("Data saved");
     }
 
@@ -247,12 +240,13 @@ public class Task02 {
         File.close();
     }
 
+    // Members first name Ordered in alphabetically
     public static void sort() {
         for (int i = 0; i <passenger.length; i++)
         {
             for (int j = i + 1; j < passenger.length; j++)
             {
-                if (passenger[i].fName.compareTo(passenger[j].fName) > 0)
+                if (passenger[i].fName.compareTo(passenger[j].fName) > 0) // Compares different elements of array
                 {
                     String temp = passenger[i].fName;
                     passenger[i].fName = passenger[j].fName;
@@ -263,7 +257,7 @@ public class Task02 {
         System.out.println("Members first name Ordered in alphabetically");
         for (int x = 0; x < passenger.length; x++) {
             if (! passenger[x].fName.equals("e"))
-                System.out.println(passenger[x].fName);
+                System.out.println(passenger[x].fName); // Display the names in alphabetically
         }
     }
 }

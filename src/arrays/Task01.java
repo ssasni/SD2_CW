@@ -129,10 +129,10 @@ public class Task01 {
         if (!hotel[roomNum].equals("e")) { // if room is not empty (Already customer in the room
             int dlt = roomNum;
             hotel[dlt] = "e";
-            System.out.println("Customer name in room is deleted");
+            System.out.println("Customer name in room is deleted"); // Display a notify message that the member name is deleted
         }
         else { // else room is empty
-            System.out.println("Room is already empty");
+            System.out.println("Room is already empty"); // Display a notify message that the room is already empty
         }
     }
 
@@ -149,23 +149,24 @@ public class Task01 {
 
     // Store data into file
     private static void store(String [] hotel) throws IOException {
-        File object1 = new File("data.txt");
+        File object1 = new File("data.txt"); // Create a file
         object1.createNewFile();
-        FileWriter write = new FileWriter(object1.getName());
+        FileWriter write = new FileWriter(object1.getName()); // Write file
         String names = "";
         for (int i = 0; i < hotel.length; i++){
             if (hotel[i].equals("e")) // if room is empty
-                names += "Room number " + i + " is empty\n"; // Display the empty rooms
+                names += "Room number " + i + " is empty\n"; // Store the empty rooms
             else // else booked
-                names += "Room number " + i + " is occupied by " + hotel[i] + "\n"; // Display the occupied room
+                names += "Room number " + i + " is occupied by " + hotel[i] + "\n"; // Store the occupied room by name
         }
         write.write(names + "\n");
 
-        write.close();
+        write.close(); // Close the file
         System.out.println("Data saved");
     }
 
 
+    // Load data from file
     private static void load(String [] hotel) throws IOException {
         System.out.println("Details loaded\n");
         File object2 = new File("data.txt");
@@ -178,12 +179,14 @@ public class Task01 {
         File.close();
     }
 
+
+    // Members first name Ordered in alphabetically
     private static void sort(String [] hotel , String[] roomName) {
         for (int i = 0; i < hotel.length; i++)
         {
             for (int j = i + 1; j < hotel.length; j++)
             {
-                if (hotel[i].compareTo(hotel[j]) > 0)
+                if (hotel[i].compareTo(hotel[j]) > 0) // Compares different elements of array
                 {
                     String temp = hotel[i];
                     hotel[i] = hotel[j];
@@ -194,7 +197,7 @@ public class Task01 {
         System.out.println("Members first name Ordered in alphabetically");
         for (int x = 0; x < hotel.length; x++) {
             if (! hotel[x].equals("e"))
-                System.out.println("Cabin number " + x + " is occupied by " + hotel[x]);
+                System.out.println("Cabin number " + x + " is occupied by " + hotel[x]); // Display the names in alphabetically
         }
     }
 
