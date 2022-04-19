@@ -16,7 +16,7 @@ public class Task01 {
 //        String roomName;
         int roomNum = 0;
 
-        // Create an array for rooms
+        // Create an array for cabin and name
         String[] hotel = new String[12];
         String[] roomName = new String[12];
         for (int x = 0; x < 12; x++ ) hotel[x] = "";
@@ -25,7 +25,7 @@ public class Task01 {
         initialise(hotel,roomName);
         Scanner user = new Scanner(System.in);
 
-        // While loop
+        // While loop for repeat the program
         while (true)
         {
             // Displaying the menu option
@@ -42,7 +42,7 @@ public class Task01 {
 
             System.out.println("-----------------------------------------");
 
-            System.out.print("Enter your option: ");
+            System.out.print("Enter your option: "); // User input for select from menu option
             String option = user.nextLine();
 
 
@@ -102,13 +102,13 @@ public class Task01 {
             System.out.println("Invalid room number"); // if room number is not between 0 - 11 it will print an error message
         }
         else {
-            if (hotel[roomNum].equals("e")) { // if room number is empty
-                if (roomNum <= 12) {
+            if (hotel[roomNum].equals("e")) { // if room is empty
+                if (roomNum <= 12) { // if room number is less than or equal to 12
                     System.out.print("Enter name for room " + roomNum + " : "); // Getting the user input for customer name
                     String roomName = input.next();
                     hotel[roomNum] = roomName;
                 }
-            } else {
+            } else { // else room is already occupied
                 System.out.println("Sorry, Room is already occupied"); // else room number is not empty
             }
         }
@@ -124,14 +124,21 @@ public class Task01 {
 
     // Delete customer from room (cabin)
     private static void delete(String [] hotel, Scanner input){
-        System.out.print("Enter the room number to delete the customer name: ");
-        int dlt = input.nextInt();
-        hotel[dlt] = "e";
+        System.out.print("Enter the room number to delete the customer name: "); // User input to get customer name
+        int roomNum = input.nextInt();
+        if (!hotel[roomNum].equals("e")) { // if room is not empty (Already customer in the room
+            int dlt = roomNum;
+            hotel[dlt] = "e";
+            System.out.println("Customer name in room is deleted");
+        }
+        else { // else room is empty
+            System.out.println("Room is already empty");
+        }
     }
 
     // Find the cabin by customer name
     private static void find(String [] hotel, Scanner input){
-        System.out.print("Enter the customer name to find his room: ");
+        System.out.print("Enter the customer name to find his room: "); // User input to get customer name
         String roomName = input.next();
         for (int i=0; i < hotel.length; i++) {
             if (hotel[i].equals(roomName))
